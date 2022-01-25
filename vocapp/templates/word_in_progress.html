@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static '/images/favicon.ico' %}"/>
+    <title>{{ word }}</title>
+</head>
+<body background="{% static 'images/background.gif' %}"  onload="new Audio( document.getElementById('invisible_link_for_link_path').getAttribute('href') ).play(); return false;">
+{% include "title.html" %}
+<hr>
+
+    <div class = 'my_div'>
+        <div class="my_div_left">
+                <a href="/add_new/{{ word }}/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Редактировать слово {{ word }}" src="{% static 'images/redo.png' %}"></a>
+                <IMG  WIDTH="16" HEIGHT="32" src="{% static 'images/empty_32x32.png' %}">
+                <a onclick="javascript:history.back(); return false;"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Назад" src="{% static 'images/back.png' %}"></a>
+                <IMG  WIDTH="16" HEIGHT="32" src="{% static 'images/empty_32x32.png' %}">
+                <a href="/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "На главную" src="{% static 'images/home.png' %}"></a>
+        </div>
+        <div class="my_div_right">
+                <a id= 'id_link_on_wooordhunt' href="https://wooordhunt.ru/word/{{ word }}" target="_blank"><IMG  class ="image_little_button"  WIDTH="32" HEIGHT="32"  title = "wooordhunt.ru" src="{% static 'images/wh.ico' %}"></a>
+                <IMG  WIDTH="16" HEIGHT="32" src="{% static 'images/empty_32x32.png' %}">
+                <a href="/ready/{{ word }}/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Слово выученно" src="{% static 'images/ok.png' %}"></a>
+        </div>
+    </div>
+    <p></p>
+
+    <p class = 'my_class_p_word' onclick='speakText(this.textContent)'>{{ word }}</p>
+    <!--<p class = 'my_class_p_word' onclick='speakText(this.textContent)'>{{ word }}</p>-->
+    <p  class = 'my_class_p_transcription' onclick="new Audio( document.getElementById('invisible_link_for_link_path').getAttribute('href') ).play(); return false;">{{ transcription }}</p>
+    {% autoescape off %}
+    <p class = 'my_class_p_my_class_p_translations'>{{ translations }}</p>
+
+
+    <p class = 'my_class_p_my_class_p_examples'>{{ examples }}</p>
+
+    {% endautoescape %}
+    <button class = 'button_add' onclick="window.location.href = '/next/{{ word }}/';">Следующее слово</button>
+
+    <p></p>
+    <a href = "{% static 'sounds' %}/{{ word }}.mp3" id="invisible_link_for_link_path"></a>
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+
+
+function speakText(text) {
+  // остановим все, что уже синтезируется в речь
+  window.speechSynthesis.cancel();
+  // прочитать текст
+  const utterance = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(utterance);
+}
+
+
+    function speak(text) {
+        speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    }
+</script>

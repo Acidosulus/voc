@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static '/images/favicon.ico' %}"/>
+    <title>Memorier</title>
+</head>
+
+
+<body background="{% static 'images/background.gif' %}">
+
+    {% include "title.html" %}
+
+    <hr>
+            <table   width = "100%">
+                <tr>
+                    <td style="border: 0px;" width="40%" align="center"><button class = 'button_add' onclick="window.location.href = './add_new/';">               Добавить слово               </button></td>
+                    <td style="border: 0px;" width="40%" align="center"><button class = 'button_trained' onclick="window.location.href = './ready_list/';">               Выученные слова               </button></td>
+                    <td style="border: 0px;" width="20%" align="center"><a href="./books/" style="margin:0px 0px 0px 0px"><IMG class ="image_little_button" style="display: inline-block;box-shadow: 2px 2px 3px 4px rgba(0,0,0,0.5);text-shadow: 1px 1px 2px black, 0 0 1em black; border-radius: 12px;" WIDTH="64" HEIGHT="64"  title = "Список книг" src="{% static 'images/books.png' %}"></a></td>
+                </tr>
+            </table>
+    <hr>
+
+
+
+    <table class="my_class_table_of_words" width = "100%">
+
+    {% for word in words %}
+    <tr>
+        <td width="7%">{{ forloop.counter }}</td>
+        <td with = "58%" style="color:Blue"><a href="./word_in_progress/{{ word.word }}/">{{ word.word }}</a></td>
+        <td width="14%" align = "center" style="color:DarkRed"  onclick="new Audio( document.getElementById('invisible_link_for_link_path_{{ word.word }}').getAttribute('href') ).play(); return false;" >{{ word.transcription }}</td>
+        <td width="7%" align = "center">{{ word.show_count }}</td>
+        <td width="7%" align = "center"><a href="./add_new/{{ word.word }}/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Редактировать слово {{ word.word }}" src="{% static 'images/redo.png' %}"></a></td>
+        <td width="7%" align = "center"><a href="/ready/{{ word.word }}/"><IMG  class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Слово выученно" src="{% static 'images/ok.png' %}"></a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <hr>
+
+    {% for word in words %}
+        <a href = "{% static 'sounds' %}/{{ word.word }}.mp3" id="invisible_link_for_link_path_{{ word.word }}"></a>
+    {% endfor %}
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+
+window.onload = function(event) {
+    setLocation('#');
+}
+function setLocation(curLoc){
+  location.href = curLoc;
+  location.hash = curLoc;
+}
+
+</script>

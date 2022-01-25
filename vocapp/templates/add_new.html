@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static '/images/favicon.ico' %}"/>
+    <title>Добавление слова</title>
+</head>
+
+<body background="{% static 'images/background.gif' %}">
+{% include "title.html" %}
+<hr>
+
+        <form method="POST" target="add_new/">{% csrf_token %}
+                <div class="my_div_save">
+                    <div class ='div_float_left'>    <IMG WIDTH="48" HEIGHT="48" src="{% static 'images/empty_32x32.png' %}"></div>
+                    <div class ='div_float_left'><a onclick="javascript:history.back(); return false;"><IMG class ="image_little_button"  WIDTH="48" HEIGHT="48"  title = "Назад" src="{% static 'images/back.png' %}"></a></div>
+                    <div class ='div_float_left'><IMG  WIDTH="48" HEIGHT="48" src="{% static 'images/empty_32x32.png' %}"></div>
+                    <div class ='div_float_left'><a href="/"><IMG  class ="image_little_button"  WIDTH="48" HEIGHT="48"  title = "На главную" src="{% static 'images/home.png' %}"></a></div>
+                    <div class ='div_float_left'><IMG  WIDTH="48" HEIGHT="48" src="{% static 'images/empty_32x32.png' %}"></div>
+                    <div class ='div_float_right'><a id= 'id_link_on_wooordhunt' href="https://wooordhunt.ru/word/{{ word }}" target="_blank"><IMG  class ="image_little_button"  WIDTH="48" HEIGHT="48"  title = "wooordhunt.ru" src="{% static 'images/wh.ico' %}"></a></div>
+                    <div class ='div_float_right'><IMG  WIDTH="48" HEIGHT="48" src="{% static 'images/empty_32x32.png' %}"></div>
+                    <div class ='div_float_right'><a id= 'id_link_on_glosbe' href="https://ru.glosbe.com/en/ru/{{ word }}" target="_blank"><IMG  class ="image_little_button"  WIDTH="48" HEIGHT="48"  title = "wooordhunt.ru" src="https://ru.glosbe.com/assets/favicon/favicon-32x32.png"></a></div>
+                    <div class ='div_float_right'><IMG  WIDTH="48" HEIGHT="48" src="{% static 'images/empty_32x32.png' %}"></div>
+                    <input type="submit" value="Сохранить" class="button_save" onclick="new Audio( document.getElementById('invisible_link_for_link_path').getAttribute('href') ).play(); this.submit();">
+                </div>
+<hr>
+
+
+
+        <table width = '100%' style="border: 0px;">
+
+            <tr><th><label for="id_word">Слово:</label></th><td class = 'td_input_new_word'><input autocomplete="off" autofocus type="text" name="word" class="my_class_input_word" id="id_word" value ="{{ word }}" onchange="{document.getElementById('id_link_on_wooordhunt').href='https://wooordhunt.ru/word/'+escape(this.value)}"></td></tr>
+            <tr><th><label for="id_transcription">Транскрипция:</label></th><td class = 'td_input_new_word'><input autocomplete="off" type="text" name="transcription" class="my_class_input_transcription" id="id_transcription" value = "{{ transcription }}"></td></tr>
+            <tr><th><label for="id_translations">Перевод:</label></th><td class = 'td_input_new_word'><textarea autocomplete="off" name="translations" cols="40" rows="10" class="my_class_input_translations" id="id_translations">{{ translations }}</textarea></td></tr>
+            <tr><th><label for="id_examples">Примеры:</label></th><td class = 'td_input_new_word'><textarea autocomplete="off" name="examples" cols="40" rows="10" class="my_class_input_examples" id="id_examples">{{ examples }}</textarea></td></tr>
+
+        </table>
+
+            <p align = "center"><input type="submit" value="Сохранить" class="button_save" onclick=" new Audio( document.getElementById('invisible_link_for_link_path').getAttribute('href') ).play(); this.submit();"></p>
+
+        </form>
+
+
+<a href = "{% static 'sounds' %}/{{ word }}.mp3" id="invisible_link_for_link_path"></a>
+
+<!--
+        <form method="POST" target="add_new/">{% csrf_token %}
+        <table width = '100%'>
+            {{ form.as_table }}
+        </table>
+            <p align = "center"><input type="submit" value="Сохранить" class="button"></p>
+        </form>
+-->
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function WordChange{document.getElementById('id_link_on_wooordhunt').href='https://wooordhunt.ru/word/'+escape(this.value)}
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+</script>

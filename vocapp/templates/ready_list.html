@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static '/images/favicon.ico' %}"/>
+    <title>Memorier</title>
+</head>
+<body background="{% static 'images/background.gif' %}">
+{% include "title.html" %}
+<hr>
+
+    <div class = 'my_div'>
+        <div class = 'my_div_left'>
+        </div>
+        <div class = 'my_div_right'>
+            <button class = 'button_trained' onclick="window.location.href = '/';">Слова в процессе</button>
+        </div>
+    </div>
+    <hr>
+
+    <table class="my_class_table_of_words">
+    {% for word in words %}
+    <tr>
+        <td width="65%"><a href="./word_in_progress/{{ word.word }}/">{{ word.word }}</a></td>
+        <td width="14%" align = "center" style="color:DarkRed"  onclick="new Audio( document.getElementById('invisible_link_for_link_path_{{ word.word }}').getAttribute('href') ).play(); return false;" >{{ word.transcription }}</td>
+        <td width="7%" align = "center">{{ word.show_count }}</td>
+        <td width="7%" align = "center"><a href="/add_new/{{ word.word }}/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Редактировать слово {{ word.word }}" src="{% static 'images/redo.png' %}"></a></td>
+        <td width="7%" align = "center"><a href="/unready/{{ word.word }}/"><IMG class ="image_little_button" WIDTH="32" HEIGHT="32"  title = "Вернуть слово в изучаемые" src="{% static 'images/return.png' %}"></a></td>
+    </tr>
+    {% endfor %}
+    </table>
+    <hr>
+    {% for word in words %}
+        <a href = "{% static 'sounds' %}/{{ word.word }}.mp3" id="invisible_link_for_link_path_{{ word.word }}"></a>
+    {% endfor %}
+</body>
+</html>

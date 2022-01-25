@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% autoescape off %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static '/images/favicon.ico' %}"/>
+    <title>{{ book_name }}</title>
+</head>
+
+
+<body background="{% static 'images/background.gif' %}">
+
+    <div class = 'my_div'>
+        <div class="my_div_left">
+            <div class="my_div_left">
+                <p align="left"><span style="font-weight: bold;">{{ book_name }}</span></p>
+            </div>
+            <div class="my_div_right">
+
+            </div>
+            </div>
+            <div class="my_div_right">
+                <p align="right"><span style="font-weight: bold;">{{ in_book_position }}</span></p>
+            </div>
+    </div>
+
+<hr>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+    {{ text }}
+    {% endautoescape %}
+
+
+<br>
+<br>
+<hr>
+
+    <div class = 'my_div' style="width: calc(100% - 10px); font-size:350%; font-weight: bold;">
+        <a href="{{ link_on_start }}">
+                <div class="my_div_left" style="width: calc(20% - 10px);">
+                    <p>&lt;&lt;&lt;&laquo;</p>
+                </div>
+        </a>
+        <a href="{{ link_on_prev }}">
+            <div class="my_div_left" style="width: calc(20% - 10px);">
+                <p>&lt;&lt;&lt;</p>
+            </div>
+        </a>
+
+        <a href="{{ link_on_next }}">
+            <div class="my_div_left" style="width: calc(20% - 10px);">
+                <p>&gt;&gt;&gt;</p>
+            </div>
+        </a>
+        <a href="{{ link_on_end }}">
+                <div class="my_div_left" style="width: calc(20% - 10px);">
+                    <p>&raquo;&gt;&gt;&gt;</p>
+                </div>
+        </a>
+    </div>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+
+window.onload = function(event) {
+    setLocation('#');
+}
+function setLocation(curLoc){
+  location.href = curLoc;
+  location.hash = curLoc;
+}
+
+</script>
